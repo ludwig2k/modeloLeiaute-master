@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">{{ __('Login') }}</div>
         <div class="form">
-            <form method="POST" action="{{ route('login_login') }}">
+            <form method="POST" action="{{ route('login_main') }}">
                 @csrf
                 <div class="input">
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -44,7 +44,7 @@
                         {{ __('Esqueceu a senha?') }}
                     </a>
                     @endif
-                    <p class="register text-center">Não possui conta? <a href="/register">Registrar</a></p>
+                    <p class="register text-center">Não possui conta? <a href="/registrar">Registrar</a></p>
                 </div>
             </form>
         </div>

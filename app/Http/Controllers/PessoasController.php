@@ -41,13 +41,15 @@ class PessoasController extends Controller
             'nome' => ['required', 'string'],
             'sexo' => ['required', 'string'],
             'data_nascimento' => ['required', 'date_format:Y-m-d'],
-            'cpf' => ['required', 'string']
+            'cpf' => ['required', 'string', 'cpf', 'unique:pessoas']
         ],
         [
             'nome.required' => 'O campo de nome é obrigatorio!',
             'sexo.required' => 'O campo de sexo é obrigatorio!',
             'data_nascimento.required' => 'O campo de data de nascimento é obrigatorio!',
-            'cpf.required' => 'O campo de CPF é obrigatorio!'
+            'cpf.required' => 'O campo de CPF é obrigatorio!',
+            'cpf.unique' => 'Este CPF ja foi cadastrado!',
+            'cpf.cpf' => 'O CPF inserido é invalido!'
         ],
     );
         
@@ -98,7 +100,7 @@ class PessoasController extends Controller
         $pessoa = Pessoas::find($id);
 
         if($pessoa){
-            return view('pessoas_editar', compact('pessoa'));
+            return view('editar_pessoas', compact('pessoa'));
             
         }
             return redirect()->back();
@@ -172,7 +174,7 @@ class PessoasController extends Controller
 
         ]);
         
-        return redirect()->route('pessoas_exibir_todos', compact('pessoa', 'pessoaUpdate'))->with('success', 'Dados editados com sucesso!');
+        return redirect()->route('lista', compact('pessoa', 'pessoaUpdate'))->with('success', 'Dados editados com sucesso!');
     }
 
     /**
@@ -186,7 +188,7 @@ class PessoasController extends Controller
 
         if($pessoa){
             $pessoa->delete();
-            return redirect()->route('pessoas_exibir_todos')->with('success', 'Registro excluido com sucesso!');
+            return redirect()->route('lista')->with('success', 'Registro excluido com sucesso!');
         }
 
         return redirect()->back();

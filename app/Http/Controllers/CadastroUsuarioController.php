@@ -11,12 +11,13 @@ use App\User;
 
 class CadastroUsuarioController extends Controller
 {
+
     public function index(){
         return view('auth.register');
 }
     public function store(Request $request){
         $request->validate([
-            'name' => ['required', 'name'],
+            'name' => ['required'],
             'email' => ['required', 'email'],
             'password' => ['required', 'min:6','confirmed'],
             

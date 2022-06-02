@@ -1,151 +1,102 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
+            integrity="sha256-Kg2zTcFO9LXOc7IwcBx1YeUBJmekycsnTsq2RuFHSZU=" crossorigin="anonymous"></script>
+
 <div class="container">
-    <div class="card">
-        <div class="card-header">{{ __('Criar Conta') }}</div>
-        <div class="form">
-            <form method="POST" action="{{ route('cadastro_store') }}">
-                @csrf
-                <div class="input">
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                        value="{{ old('name') }}" autocomplete="name" autofocus placeholder="Nome">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Register') }}</div>
 
-                    @error('name')
-                    <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                    @enderror
+                <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
 
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                        name="email" value="{{ old('email') }}" autocomplete="email" autofocus placeholder="Email">
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
-                    @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                    @enderror
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                    <input type="string" name="cpf_cad" id="cpf_cad" class="form-control @error('cpf') is-invalid @enderror"
-                        placeholder="CPF" maxlength="14" data-mask="000.000.000-00">
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-                    @error('cpf')
-                    <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                    @enderror
+                        <div class="form-group row">
+                            <label for="cpf1" class="col-md-4 col-form-label text-md-right">{{ __('CPF') }}</label>
 
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                        name="password" required autocomplete="current-password" placeholder="Senha">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="cpf1" name="cpf1"
+                        placeholder="Ex: 000.000.000-00">
 
-                    @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        {{ $message }}
-                    </span>
-                    @enderror
+                                @error('cpf1')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                        autocomplete="new-password" placeholder="Confirmar senha">
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-                    <button type="submit">
-                        {{ __('Registrar') }}
-                    </button>
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="details">
-                    <p class="register text-center">Já possui conta? <a href="/login">Entrar</a></p>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
-
-
-{{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header">{{ __('Criar Conta') }}</div>
-
-<div class="card-body">
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <div class="form-group row">
-
-            <div class="col-md-8">
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                    value="{{ old('name') }}" autocomplete="name" autofocus placeholder="Nome">
-
-                @error('name')
-                <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group row">
-
-            <div class="col-md-8">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                    value="{{ old('email') }}" autocomplete="email" placeholder="Email">
-
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-8">
-                <input type="string" name="cpf" id="cpf" class="form-control @error('cpf') is-invalid @enderror"
-                    placeholder="CPF" maxlength="14" data-mask="000.000.000-00">
-
-                @error('cpf')
-                <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group row">
-
-            <div class="col-md-8">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                    name="password" autocomplete="new-password" placeholder="Senha">
-
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group row">
-
-            <div class="col-md-8">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                    autocomplete="new-password" placeholder="Confirmar senha">
-            </div>
-        </div>
-
-        <div class="form-group row mb-0">
-            <div class="col-md-8">
-                <button type="submit" class="btn-hover btn btn-primary">
-                    {{ __('Registrar') }}
-                </button>
-
-                <p class="register text-center">Já possui conta? <a href="/login">Entrar</a></p>
-            </div>
-        </div>
-    </form>
-</div>
-</div>
-</div>
-</div>
-</div> --}}
+<script> 
+    $(document).ready(function(){
+        $('#cpf1').mask('000.000.000-00', {reverse: true});
+        })
+</script>
 @endsection

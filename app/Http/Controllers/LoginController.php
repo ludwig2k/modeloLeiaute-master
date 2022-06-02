@@ -10,25 +10,35 @@ use App\User;
 class LoginController extends Controller
 {
     public function index(){
-        return view('login');
+        return view('auth.login');
     }
 
     public function login(Request $request){
+
+        $name = $request->name;
         $email = $request->email;
         $password = $request->password;
+        
+            //$this->validate(request(),[
+            //'name' => 'required',
+            //'email'=>'required',
+            //'password'=>'required'
+            //]);
 
-        $existe = User::where('email', $email)->where('password', $password)->first();
 
-        if($existe){
+        $user=User::where('name', $name)->where('email', $email)->where('password', $password)->first();
+
+        if($user){
             session_start();
             $_SESSION['usuario'] = $email;
-            return redirect()->route('welcome');
-        }
-        else{
-            return redirect()->back();
+            //return view('welcome');
+
+            //auth()->login($user);
+
+            //return view('welcome');
+
 
         }
-        
     }   
 
     public function logout(){

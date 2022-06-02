@@ -1,5 +1,10 @@
-<form action="{{route('protocolos_store')}}" method="post" class="form-horizontal" id="formProduto" enctype="multipart/form-data">
+@extends('layouts.master')
+@section('title','EXEMPLO')
+@section('content')
+
+<form action="{{route('protocolos_update')}}" method="post" class="form-horizontal" id="formProduto" enctype="multipart/form-data">
     @csrf
+    <input type="hidden" value="{{$protocolo->id}}" name="protocolo_id">
 
     @if (\Session::has('success'))
         <div class="alert alert-success">
@@ -25,7 +30,7 @@
             <div class="form-group">
                 <label for="descricao" class="control-label">Descrição: *</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Ex: Problema no setor 2">
+                    <input type="text" class="form-control" id="descricao" name="descricao" value="{{$protocolo->descricao}}">
                 </div>
             </div>
 
@@ -33,14 +38,14 @@
             <div class="form-group">
                 <label for="data" class="control-label">Data: *</label>
                 <div class="input-group">
-                    <input type="date" class="form-control" id="data" name="data">
+                    <input type="date" class="form-control" id="data" name="data" value="{{date('Y-m-d',strtotime($protocolo->data))}}">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="prazo" class="control-label">Prazo(Dias): *</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="prazo" name="prazo" placeholder="Ex: 3, 10">
+                    <input type="text" class="form-control" id="prazo" name="prazo" value="{{$protocolo->prazo}}">
                 </div>
             </div>
 
@@ -70,3 +75,4 @@
         </div>
     </div>
 </form>
+@endsection

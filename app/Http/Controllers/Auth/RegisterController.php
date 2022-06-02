@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,9 +51,21 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'cpf1' => ['required', 'string','cpf', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ],
+        [
+            'name.required' => 'O campo de nome é obrigatorio!',
+            'email.required' => 'Por favor digite o seu email!',
+            'password.required' => 'Por favor digite a sua senha!',
+            'password.min' => 'Sua senha precisa ter no minimo 6 digitos!',
+            'password.confirmed' => 'As suas senhas não coincidem!',
+            'cpf1.required' => 'O campo de CPF é obrigatorio!',
+            'cpf1.unique' => 'Este CPF ja foi cadastrado!',
+            'cpf1.cpf' => 'O CPF inserido é invalido!'
+        ],
+    );
     }
 
     /**
@@ -65,6 +78,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'cpf1' => $data['cpf1'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

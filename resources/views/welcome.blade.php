@@ -6,7 +6,7 @@
     <div class="row d-flex justify-content-around">
         <div class="col-sm-3">
             <div class="card text-center">
-                <img class="card-img-top" src="{{ URL::to('/imagens/images.png') }}" alt="">
+                <img class="card-img-top" src="{{ URL::to('/imagens/foto1.jpg') }}" alt="">
                 <div class="card-body">
                     <h4 class="card-title">Cadastro Exemplo</h4>
                     <p class="card-text"></p>
@@ -16,7 +16,7 @@
         </div>
         <div class="col-sm-3">
             <div class="card text-center">
-                <img class="card-img-top" src="{{ URL::to('/imagens/images.png') }}" alt="">
+                <img class="card-img-top" src="{{ URL::to('/imagens/foto2.jpg') }}" alt="">
                 <div class="card-body">
                     <h4 class="card-title">Lista Exemplo</h4>
                     <p class="card-text"></p>
@@ -26,11 +26,11 @@
         </div>
         <div class="col-sm-3">
             <div class="card text-center">
-                <img class="card-img-top" src="{{ URL::to('/imagens/images.png') }}" alt="">
+                <img class="card-img-top" src="{{ URL::to('/imagens/pdf.png') }}" alt="">
                 <div class="card-body">
                     <h4 class="card-title">PDF Exemplo</h4>
                     <p class="card-text"></p>
-                    <a href="{{ route('pdf') }}" class="btn btn-primary stretched-link">Link lista</a>
+                    <a href="{{ route('gerar_pdf') }}" class="btn btn-primary stretched-link">Link PDF</a>
                 </div>
             </div>
         </div>

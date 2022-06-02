@@ -33,27 +33,20 @@
     <table class="table">
         <thead align="center">
             <tr>
-                <th>Nome</th>
-                <th>Sexo</th>
-                <th>Cidade</th>
-                <th>Bairro</th>
-                <th>Rua</th>
-                <th>Complemento</th>
-                <th>Data de Nascimento</th>
-                <th>CPF</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($pessoas as $pessoa)
-            <tr>
-                <td>{{$pessoa->nome}}</td>
-                <td>{{$pessoa->sexo}}</td>
-                <td>{{$pessoa->cidade}}</td>
-                <td>{{$pessoa->bairro}}</td>
-                <td>{{$pessoa->rua}}</td>
-                <td>{{$pessoa->complemento}}</td>
-                <td>{{$pessoa->data_nascimento}}</td>
-                <td>{{$pessoa->cpf}}</td>
+                <th>Atendente</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                     <th>Prazo</th>
+                     <th>Receptor</th>
+                </thead>
+                <tbody>
+                    @foreach ($protocolos as $protocolo )
+                    <tr> 
+                        <td>{{$protocolo->getAtendente->nome}}</td>
+                        <td>{{$protocolo->descricao}}</td>
+                        <td>{{date('d-m-Y',strtotime($protocolo->data))}}</td>
+                        <td>{{$protocolo->prazo}}</td>
+                        <td>{{$protocolo->getReceptor->nome}}</td>
             </tr>
             @endforeach
         </tbody>

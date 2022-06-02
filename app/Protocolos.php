@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Protocolos extends Model
+
+class Protocolos extends Model implements Auditable
+
 {
+    use \OwenIt\Auditing\Auditable;
+    
     protected $fillable=['descricao','data', 'prazo', 'atendente', 'receptor'];
 
     public function getAtendente(){

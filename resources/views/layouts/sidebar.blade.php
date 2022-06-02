@@ -46,7 +46,7 @@
                                 </a>
                             </li>
                             <li class="{{ (request()->routeIs('pdf')) ? 'active' : '' }}">
-                                <a href="{{ route('pdf') }}">
+                                <a href="{{ route('gerar_pdf') }}">
                                     <span class="sub-item">PDF</span>
                                 </a>
                             </li>
@@ -67,8 +67,18 @@
                                 </a>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="{{ route('lista_protocolos') }}">
                                     <span class="sub-item">Lista</span>
+                                </a>
+                            </li>
+                            <li class="{{ (request()->routeIs('pdf_protocolos')) ? 'active' : '' }}">
+                                <a href="{{ route('gerar_pdf_protocolos') }}">
+                                    <span class="sub-item">PDF</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="{{ route('acomp_cadastro') }}">
+                                    <span class="sub-item">Acompanhamento</span>
                                 </a>
                             </li>
                         </ul>

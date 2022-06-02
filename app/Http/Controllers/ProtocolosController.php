@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Pessoas;
 use App\Protocolos;
 use Illuminate\Support\Facades\Auth;
+use App\Anexos;
 
 class ProtocolosController extends Controller
 {
@@ -47,6 +48,21 @@ class ProtocolosController extends Controller
 
         ]);
 
+        if(!empty($request->allFiles()['anexos'])){
+            error_log("passo2");
+            for($i = 0; $i <count($request->allFiles()['anexos']); $i++){
+               $arquivo = $request->allFiles()['anexos'][$i];
+
+               $anexo = new Anexos();
+               $anexo->protocolo()->associate($protocoloCriado);
+               $anexo->arquivo = $arquivo->store('arquivos/'.$protocoloCriado->id);
+
+               $anexo->save();
+              // array_push($cursos, $curso);
+              // unset($cursos);
+            }
+           }
+
         
         return redirect()->back()->with('success', 'Seu protocolo foi criado!'); 
     }
@@ -54,7 +70,7 @@ class ProtocolosController extends Controller
     public function exibirTodos(Request $request){
         $protocolos = Protocolos::all();
 
-        return view('protocolo_exibir', compact('protocolos'));
+        return view('tabela_protocolos', compact('protocolos'));
 
     }
 
@@ -83,7 +99,7 @@ class ProtocolosController extends Controller
 
         if($protocolo){
             $protocolo->delete();
-            return redirect()->route('protocolos_exibir_todos')->with('success', 'Registro excluido com sucesso!');
+            return redirect()->route('lista_protocolos')->with('success', 'Registro excluido com sucesso!');
         }
 
         return redirect()->back();
@@ -96,7 +112,7 @@ class ProtocolosController extends Controller
         $pessoas = Pessoas::all();
 
         if($protocolo){
-            return view('protocolos_editar', compact('protocolo', 'pessoas'));
+            return view('editar_protocolos', compact('protocolo', 'pessoas'));
             
         }
             return redirect()->back();
@@ -133,8 +149,11 @@ class ProtocolosController extends Controller
 
         ]);
 
-        return redirect()->route('protocolos_exibir_todos')->with('success', 'Dados editados com sucesso!');
+        return redirect()->route('lista_protocolos')->with('success', 'Dados editados com sucesso!');
     }
+
+
+
 
 }
 
